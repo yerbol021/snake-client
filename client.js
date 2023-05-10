@@ -1,4 +1,5 @@
 const net = require("net");
+// const setupInput = require("./input")
 const connect = function() {
   const conn = net.createConnection({
     host: "165.227.47.243",
@@ -17,23 +18,6 @@ const connect = function() {
     // conn.write("Move: right");
   });
 
-  const setupInput = function() {
-    const stdin = process.stdin;
-    stdin.setRawMode(true);
-    stdin.setEncoding("utf8");
-    stdin.resume();
-    return stdin;
-  };
-
-  const handleUserInput = function(key) {
-    if (key === '\u0003') {
-      process.exit();
-    };
-    // your code here
-  };
-
-  conn.on("data", handleUserInput);
-
   conn.on("data", (data) => {
     console.log("Incoming data:", data);
     // process the incoming data here
@@ -42,4 +26,4 @@ const connect = function() {
   return conn;
 };
 
-module.exports = connect;
+module.exports = {connect};
